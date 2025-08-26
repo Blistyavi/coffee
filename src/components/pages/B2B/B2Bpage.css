@@ -1,0 +1,33 @@
+/* ===== B2B page shell ===== */
+.b2b-page { background:#fff; color:#0f0f10; }
+.b2b-container { width:min(1280px,92%); margin-inline:auto; }
+
+.b2b-section{
+  position:relative;
+  z-index:0;
+  padding:28px 0;
+}
+
+.b2b-hero{
+  padding:24px 0 10px;
+  border-bottom:1px solid rgba(15,23,42,.08);
+}
+.b2b-title{
+  font-family:'Oswald',sans-serif;
+  font-size:clamp(26px,3.4vw,40px);
+  font-weight:600;
+  letter-spacing:.5px;
+  margin:6px 0 6px;
+}
+.b2b-sub{ color:#666b73; margin:6px 0 0; }
+
+/* ВАЖНО: большой отступ снизу, чтобы футер/контент не залезал под 3D-слой */
+.b2b-orbit{
+  padding:28px 0 160px;
+  z-index:1;
+}
+
+@media (max-width: 900px){
+  .b2b-section{ padding:22px 0; }
+  .b2b-orbit{ padding-bottom:120px; }
+}

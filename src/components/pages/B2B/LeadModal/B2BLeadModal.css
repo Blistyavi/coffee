@@ -1,0 +1,83 @@
+:root{
+  --border: rgba(15,23,42,.12);
+  --accent: #8B5A2B;
+  --muted: #666b73;
+  --ease: cubic-bezier(.22,1,.36,1);
+}
+
+/* слой */
+.b2b-modal{
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.38);
+  display: grid; place-items: center;
+  opacity: 0; visibility: hidden;
+  transition: opacity .25s var(--ease), visibility .25s var(--ease);
+  z-index: 3000;
+}
+.b2b-modal.open{ opacity: 1; visibility: visible; }
+
+/* карточка */
+.b2b-modal-card{
+  width: min(720px, 92vw);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 24px 80px rgba(0,0,0,.22);
+  padding: 18px;
+  transform: translateY(10px) scale(.98);
+  animation: modalIn .28s var(--ease) forwards;
+}
+@keyframes modalIn{ to{ transform: translateY(0) scale(1); } }
+
+.b2b-modal-head{
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom: 8px;
+}
+.b2b-modal-head h3{
+  margin:0; font-family:'Oswald',sans-serif; font-size:22px; letter-spacing:.3px;
+}
+.b2b-modal-head .x{
+  width:36px; height:36px; border-radius:10px;
+  border:1px solid var(--border); background:#fff; cursor:pointer;
+}
+
+/* форма */
+.b2b-form{ display:grid; gap:12px; }
+.b2b-form .grid{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+.b2b-form label{ display:grid; gap:6px; }
+.b2b-form label span{ font-size:13px; color:#333; }
+.b2b-form input, .b2b-form textarea{
+  width:100%; height:40px; padding:0 12px;
+  border-radius:10px; border:1px solid var(--border); background:#fff; font-size:14px;
+}
+.b2b-form textarea{ height:auto; padding:10px 12px; resize:vertical; min-height:80px; }
+.b2b-form label.err input, .b2b-form label.err textarea{ border-color:#ffb0b0; background:#fff7f7; }
+.b2b-form label.err i{ color:#b20000; font-size:12px; }
+
+.b2b-form .full{ grid-column: 1 / -1; }
+.b2b-form .chk{ display:flex; align-items:center; gap:10px; }
+.b2b-form .chk input{ width:18px; height:18px; }
+.err-msg{ color:#b20000; font-size:12px; margin-top:-8px; }
+
+.actions{ display:flex; gap:10px; margin-top:4px; }
+
+/* кнопки в стилистике проекта */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  height:42px; padding:0 18px; border-radius:12px; border:1px solid #000;
+  font-weight:500; text-transform:uppercase; letter-spacing:.6px; cursor:pointer;
+}
+.btn-dark{ background:#000; color:#fff; border-color:#000; }
+.btn-ghost{ background:#fff; color:#000; border-color:#000; }
+.btn:hover{ filter:brightness(1.05); }
+
+.note{ color:var(--muted); font-size:12px; }
+
+/* экран «отправлено» */
+.b2b-modal-done{ text-align:center; padding:30px 10px; }
+.b2b-modal-done h3{ font-family:'Oswald',sans-serif; font-size:24px; margin:0 0 6px; }
+.b2b-modal-done p{ margin:0; color:#333; }
+
+@media (max-width:680px){
+  .b2b-form .grid{ grid-template-columns:1fr; }
+}

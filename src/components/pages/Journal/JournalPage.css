@@ -1,0 +1,236 @@
+/* =========================
+   Journal Page — Base Shell
+   ========================= */
+:root{
+  --jp-bg: #ffffff;
+  --jp-text: #0f0f10;
+  --jp-muted: #666b73;
+  --jp-border: rgba(15,23,42,.12);
+  --jp-accent: #8B5A2B;
+
+  --jp-radius-sm: 10px;
+  --jp-radius: 14px;
+  --jp-radius-lg: 16px;
+
+  --jp-shadow-sm: 0 6px 16px rgba(0,0,0,.06);
+  --jp-shadow-md: 0 12px 30px rgba(0,0,0,.12), 0 2px 10px rgba(0,0,0,.06);
+  --jp-ease: cubic-bezier(.22,1,.36,1);
+}
+
+.journal-page{
+  background: var(--jp-bg);
+  color: var(--jp-text);
+}
+
+.journal-container{
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 5%;
+}
+
+/* секции страницы (герой, избранное, сетка статей, подписка) */
+.journal-section{
+  padding: clamp(20px, 4vw, 48px) 0;
+  position: relative;
+}
+
+.journal-section + .journal-section{
+  border-top: 1px solid var(--jp-border);
+}
+
+/* заголовки секций по умолчанию */
+.journal-section h2{
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(20px, 2.6vw, 28px);
+  font-weight: 600;
+  letter-spacing: .4px;
+  margin: 0 0 12px 0;
+}
+
+/* подзаголовки/описания */
+.journal-lead{
+  color: var(--jp-muted);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0 0 14px 0;
+  max-width: 760px;
+}
+
+/* =========================
+   Cards / Surfaces
+   ========================= */
+.jp-card{
+  background: #fff;
+  border: 1px solid var(--jp-border);
+  border-radius: var(--jp-radius);
+  box-shadow: var(--jp-shadow-sm);
+  overflow: hidden;
+  transition: transform .15s var(--jp-ease), box-shadow .2s var(--jp-ease);
+}
+
+.jp-card:hover{
+  transform: translateY(-2px);
+  box-shadow: var(--jp-shadow-md);
+}
+
+/* Заголовки карточек */
+.jp-card-title{
+  font-family: "Oswald", sans-serif;
+  font-size: 18px;
+  letter-spacing: .3px;
+  color: #111;
+  margin: 0;
+}
+
+/* текст карточек */
+.jp-card-text{
+  color: #333;
+  line-height: 1.55;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Медиа в карточке */
+.jp-card-media{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #f7f7f8;
+}
+.jp-card-media img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* =========================
+   Grids
+   ========================= */
+.jp-grid{
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 18px;
+}
+
+.jp-col-12{ grid-column: span 12; }
+.jp-col-8 { grid-column: span 8; }
+.jp-col-6 { grid-column: span 6; }
+.jp-col-4 { grid-column: span 4; }
+.jp-col-3 { grid-column: span 3; }
+
+/* адаптивные колонки */
+@media (max-width: 980px){
+  .jp-col-md-12{ grid-column: span 12; }
+  .jp-col-md-6 { grid-column: span 6; }
+  .jp-col-md-4 { grid-column: span 4; }
+}
+
+@media (max-width: 640px){
+  .jp-grid{ gap: 14px; }
+  .jp-col-sm-12{ grid-column: span 12; }
+}
+
+/* =========================
+   Utilities
+   ========================= */
+.jp-muted{ color: var(--jp-muted); }
+.jp-accent{ color: var(--jp-accent); }
+
+.jp-actions{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.jp-pill{
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--jp-border);
+  background: #fff;
+  font-size: 13px;
+  color: #222;
+}
+
+/* навигация категорий (если нужна как общий стиль) */
+.jp-cats{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.jp-cat{
+  border: 1px solid var(--jp-border);
+  background: #fff;
+  color: #222;
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-family: "Oswald", sans-serif;
+  letter-spacing: .3px;
+  transition: background .2s, color .2s, border-color .2s;
+}
+.jp-cat:hover{ background: #f7f7f8; }
+.jp-cat.active{
+  background: #000; color: #fff; border-color: #000;
+}
+
+/* =========================
+   Images / Ratios
+   ========================= */
+.jp-ratio{
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #f3f4f6;
+}
+.jp-ratio::before{
+  content:"";
+  display: block;
+  padding-bottom: var(--ratio, 56.25%); /* 16:9 по умолчанию */
+}
+.jp-ratio > img, .jp-ratio > picture, .jp-ratio > video{
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+}
+
+/* =========================
+   Spacing helpers (если нужно)
+   ========================= */
+.mt-0{ margin-top:0!important; }
+.mb-0{ margin-bottom:0!important; }
+.mt-8{ margin-top:8px!important; }
+.mb-8{ margin-bottom:8px!important; }
+.mt-12{ margin-top:12px!important; }
+.mb-12{ margin-bottom:12px!important; }
+.mt-16{ margin-top:16px!important; }
+.mb-16{ margin-bottom:16px!important; }
+
+/* =========================
+   Buttons (использует твой .btn)
+   ========================= */
+/* ничего не переопределяем, только хелперы при необходимости */
+.btn-wide{ padding: 0 22px; }
+.btn-tall{ height: 46px; border-radius: var(--jp-radius-sm); }
+
+/* =========================
+   Forms (подписка/поиск в журнале)
+   ========================= */
+.jp-input{
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  border-radius: var(--jp-radius-sm);
+  border: 1px solid var(--jp-border);
+  background: #fff;
+  font-size: 14px;
+  transition: box-shadow .2s var(--jp-ease), border-color .2s var(--jp-ease);
+  outline: none;
+}
+.jp-input::placeholder{ color: #9aa0a6; }
+.jp-input:focus{
+  border-color: rgba(0,0,0,.28);
+  box-shadow: 0 0 0 3px rgba(139,90,43,.18);
+}

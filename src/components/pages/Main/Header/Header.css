@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap');
+
+/* tokens */
+:root{
+  --dd-ease: cubic-bezier(.22,1,.36,1);
+  --dd-bg: #fff;
+  --dd-border: rgba(15,23,42,.10);
+  --dd-shadow: 0 18px 45px rgba(0,0,0,.14), 0 2px 8px rgba(0,0,0,.06);
+  --dd-radius: 14px;
+}
+
+.coffee-header,
+.coffee-header *:not(.material-icons):not(.material-icons-outlined):not([class^="icon-"]):not([class*=" icon-"]) {
+  font-family: 'Oswald', sans-serif !important;
+  font-optical-sizing: auto;
+}
+
+/* базовые */
+.coffee-header{
+  background:#fff;
+  padding:15px 5%;
+  position:sticky; top:0; z-index:1000;
+  font-weight:400;
+  border-bottom:1px solid rgba(15,23,42,.06);
+}
+.header-container{
+  display:flex; justify-content:space-between; align-items:center;
+  max-width:1400px; margin:0 auto;
+}
+
+/* левая часть */
+.header-left{ display:flex; align-items:center; gap:40px; }
+.logo-img{ height:40px; width:auto; }
+.main-nav{
+  display:flex; gap:25px; align-items:center;
+  overflow: visible; /* выпадашки не обрезаются */
+}
+
+/* ссылки в навигации */
+.nav-link{
+  color:#333; text-decoration:none; font-size:15px; font-weight:500;
+  display:flex; align-items:center; gap:5px;
+  background:none; border:0; cursor:pointer; padding:0; position:relative;
+  transition: color .2s;
+}
+.nav-link:hover{ color:#8B5A2B; }
+.highlight-count{ color:#8B5A2B; font-weight:500; }
+
+/* dropdown */
+.with-dropdown{ position:relative; }
+.dropdown-arrow{
+  display:inline-flex; align-items:center; margin-left:3px;
+  transition: transform .22s var(--dd-ease);
+}
+.with-dropdown.open .dropdown-arrow{ transform: rotate(180deg); }
+
+.dropdown-menu{
+  position:absolute; top:100%; left:0;
+  min-width:260px; max-width:360px;
+  padding:12px; display:flex; flex-direction:column; gap:6px;
+
+  background:var(--dd-bg);
+  border:1px solid var(--dd-border); border-radius:var(--dd-radius);
+  box-shadow:var(--dd-shadow);
+  z-index:2000; transform-origin: top left;
+
+  opacity:0; transform: translateY(-6px) scale(.98);
+  pointer-events:none;
+  transition: opacity .18s var(--dd-ease), transform .18s var(--dd-ease);
+}
+.dropdown-menu.open{
+  opacity:1; transform: translateY(0) scale(1);
+  pointer-events:auto;
+}
+.dropdown-menu::before{
+  content:""; position:absolute; top:-7px; left:18px; width:12px; height:12px;
+  background:#fff; border-left:1px solid var(--dd-border); border-top:1px solid var(--dd-border);
+  transform: rotate(45deg);
+}
+.dropdown-menu a{
+  color:#242424; text-decoration:none; font-weight:400; font-size:14px; line-height:1.25;
+  padding:8px 10px; border-radius:8px;
+  white-space:normal; word-break:break-word;
+  transition: background .18s ease, color .18s ease;
+}
+.dropdown-menu a:hover, .dropdown-menu a:focus{
+  background: rgba(139,90,43,.08); color:#8B5A2B; outline:none;
+}
+
+/* правая часть */
+.header-right{ display:flex; align-items:center; gap:20px; }
+
+/* поиск */
+.search-wrapper{ position:relative; display:flex; align-items:center; }
+.search-input{
+  padding:8px 36px 8px 35px;
+  border:none; border-bottom:1px solid #ddd; font-size:14px; width:250px; outline:none;
+  transition: border-color .2s; font-weight:400;
+}
+.search-input:focus{ border-color:#8B5A2B; }
+.search-icon{ position:absolute; left:12px; color:#999; }
+.search-clear{
+  position:absolute; right:8px; width:22px; height:22px; display:inline-flex; align-items:center; justify-content:center;
+  background:transparent; border:0; color:#999; cursor:pointer;
+}
+.search-clear:hover{ color:#333; }
+
+/* кнопки справа */
+.account-link, .cart-link{ color:#333; font-size:20px; transition: color .2s; }
+.account-link:hover, .cart-link:hover{ color:#8B5A2B; }
+
+/* текстовая кнопка регистрации */
+.auth-btn{
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  display:inline-flex; align-items:center; justify-content:center;
+  text-transform: uppercase; letter-spacing:.6px;
+  font-size: 13px; font-weight:500; color:#000; background:#fff;
+  transition: filter .18s ease, transform .12s ease;
+}
+.auth-btn:hover{ filter: brightness(0.96); }
+.auth-btn:active{ transform: translateY(1px); }
+
+/* мобильные */
+@media (max-width:768px){
+  .main-nav{ gap:18px; }
+  .search-input{ width:200px; }
+}

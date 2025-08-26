@@ -1,0 +1,25 @@
+.journal-cats {
+  max-width: 1200px;
+  margin: 18px auto;
+  padding: 0 5%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.cat-btn {
+  border: 1px solid rgba(15,23,42,.12);
+  background: #fff;
+  color: #222;
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-family: "Oswald", sans-serif;
+  letter-spacing: .3px;
+  transition: background .2s, color .2s, border-color .2s;
+}
+.cat-btn:hover { background: #f7f7f8; }
+.cat-btn.active {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}

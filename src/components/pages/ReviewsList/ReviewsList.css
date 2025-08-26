@@ -1,0 +1,60 @@
+.reviews-page {
+  margin: 2rem auto;
+  max-width: 1000px;
+}
+
+.reviews-page h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.review-card {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.review-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.review-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.review-name {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.review-date {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.review-rating {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+  color: #6b4f3b;
+}
+
+.review-text {
+  font-size: 1rem;
+  line-height: 1.4;
+  color: #444;
+}

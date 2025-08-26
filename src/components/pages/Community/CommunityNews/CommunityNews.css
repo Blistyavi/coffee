@@ -1,0 +1,112 @@
+:root{
+  --accent: #8B5A2B;
+  --muted: #666b73;
+  --border: rgba(15,23,42,.12);
+  --ease: cubic-bezier(.22,1,.36,1);
+}
+
+/* сетка */
+.cn-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* карточка */
+.cn-card{
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 6px 16px rgba(0,0,0,.06);
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease);
+  height: 100%;
+}
+.cn-card:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(0,0,0,.1);
+}
+
+/* превью фиксированное */
+.cn-media{
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #f2f2f2;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.cn-media img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s var(--ease);
+}
+.cn-card:hover .cn-media img{ transform: scale(1.05); }
+
+.cn-tag{
+  position: absolute;
+  left: 12px; top: 12px;
+  background: rgba(255,255,255,.9);
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  backdrop-filter: blur(4px);
+}
+
+/* тело карточки */
+.cn-body{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 16px;
+  min-height: 140px; /* одинаковая высота текста */
+}
+.cn-title{
+  font-family: "Oswald", sans-serif;
+  font-size: 18px;
+  margin: 0 0 8px;
+  flex-shrink: 0;
+}
+.cn-title a{ color: #111; text-decoration: none; }
+.cn-title a:hover{ color: var(--accent); }
+
+.cn-excerpt{
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
+  margin: 0 0 12px;
+}
+
+/* мета всегда внизу */
+.cn-meta{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: auto; /* прижимает вниз */
+}
+.cn-meta span{ white-space: nowrap; }
+.cn-more{
+  margin-left: auto;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--accent);
+  text-decoration: none;
+  transition: color .2s var(--ease);
+}
+.cn-more:hover{ color: #000; }
+
+/* адаптив */
+@media (max-width: 640px){
+  .cn-title{ font-size: 16px; }
+  .cn-body{ padding: 12px; }
+}

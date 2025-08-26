@@ -1,0 +1,65 @@
+.journal-articles {
+  max-width: 1200px;
+  margin: 10px auto 28px;
+  padding: 0 5%;
+}
+.journal-articles h2 {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(20px, 2.6vw, 28px);
+  font-weight: 600;
+  margin: 0 0 12px 0;
+}
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 18px;
+}
+.article-card {
+  grid-column: span 4;              /* 3 карточки в ряд на десктопе */
+  background: #fff;
+  border: 1px solid rgba(15,23,42,.12);
+  border-radius: 14px;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 160px auto;
+  transition: transform .15s ease, box-shadow .2s ease;
+}
+.article-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0,0,0,.08);
+}
+.article-img { width: 100%; height: 100%; overflow: hidden; }
+.article-img img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.article-body {
+  padding: 14px;
+  display: grid;
+  gap: 8px;
+  align-content: start;
+}
+.article-body h3 {
+  margin: 0;
+  font-family: "Oswald", sans-serif;
+  font-size: 18px;
+  letter-spacing: .3px;
+  color: #111;
+}
+.article-body p {
+  margin: 0;
+  color: #444;
+  line-height: 1.5;
+  font-size: 14px;
+}
+.article-body .btn { justify-self: start; }
+
+/* адаптив */
+@media (max-width: 980px) {
+  .article-card { grid-column: span 6; }  /* 2 в ряд */
+  .article-card { grid-template-rows: 180px auto; }
+}
+@media (max-width: 640px) {
+  .articles-grid { gap: 14px; }
+  .article-card { grid-column: span 12; } /* 1 в ряд */
+  .article-card { grid-template-rows: 200px auto; }
+}

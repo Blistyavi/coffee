@@ -1,0 +1,154 @@
+:root { --easing-spring: cubic-bezier(.22,1,.36,1); }
+
+.product-recommendations {
+  font-family: 'Oswald', sans-serif;
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 24px; font-weight: 500; color: #000;
+  text-align: center; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.5px;
+}
+
+.products-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 30px; flex-wrap: wrap; gap: 20px;
+}
+
+.sort-controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+.sort-button {
+  padding: 8px 15px; border: none; background: none;
+  font-family: 'Oswald', sans-serif; font-size: 14px; color: #666;
+  cursor: pointer; position: relative; transition: color .3s;
+}
+.sort-button:hover { color: #8B5A2B; }
+.sort-button.active { color: #8B5A2B; font-weight: 500; }
+.sort-button.active::after {
+  content: ''; position: absolute; bottom: -6px; left: 0; width: 100%; height: 2px;
+  background-color: #8B5A2B; border-radius: 2px;
+}
+
+/* триггер-фильтр как пилюля */
+.sort-button.pill{
+  border:1px solid rgba(15,23,42,.18);
+  border-radius:12px;
+  padding:8px 12px;
+  background:#fff;
+}
+
+.sort-dropdown { position: relative; display: inline-block; }
+
+.dropdown-menu {
+  position: absolute; top: 100%; left: 0;
+  background: #fff;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+  border: 1px solid rgba(15,23,42,.08);
+  border-radius: 10px;
+  padding: 8px 0;
+  min-width: 190px;
+  z-index: 10000;
+  opacity: 0; visibility: hidden;
+  transform: translateY(8px) scale(.98);
+  transition: opacity .25s var(--easing-spring), transform .25s var(--easing-spring), visibility .25s;
+  filter: none !important;
+  -webkit-filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.dropdown-menu.open { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+
+.dropdown-menu button{
+  display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 10px;
+  width: 100%; padding: 10px 14px; border: none; background: none; text-align: left;
+  font-family: 'Oswald', sans-serif; font-size: 14px; color: #333; cursor: pointer;
+  transition: background .18s ease, color .18s ease;
+}
+.dropdown-menu button:hover{ background: rgba(139,90,43,.08); color: #8B5A2B; }
+.dropdown-menu button.active{ background: rgba(139,90,43,.12); color: #8B5A2B; }
+.dropdown-count{ opacity: .7; font-size: 12px; }
+
+/* grid */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+/* card */
+.product-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  background: #fff;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  opacity: 1; transform: translateY(0);
+  transition: box-shadow .25s ease, transform .3s ease, border-color .25s ease, background-color .25s ease;
+  will-change: transform, opacity;
+}
+.product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
+/* появление при смене фильтра/сортировки */
+.product-card.reenter {
+  opacity: 0; transform: translateY(8px) scale(.98);
+  animation: cardReenter .45s var(--easing-spring) forwards;
+  animation-delay: var(--delay, 0ms);
+}
+@keyframes cardReenter { to { opacity: 1; transform: translateY(0) scale(1); } }
+
+/* ПОДСВЕТКА всех найденных карточек (по имени) — постоянная, кофейная */
+.product-card.search-hit{
+  border-color: #8B5A2B !important;
+  box-shadow: 0 0 0 4px rgba(139,90,43,.14);
+  background-image: linear-gradient(0deg, rgba(139,90,43,.06), rgba(139,90,43,.06));
+}
+
+.product-image-container { width: 100%; height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.product-image { width: 35%; height: 100%; object-fit: cover; transition: transform .3s ease; }
+.product-card:hover .product-image { transform: scale(1.05); }
+
+.product-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+.product-header { margin-bottom: 15px; }
+.product-name { font-size: 18px; font-weight: 500; color: #000; margin: 0 0 8px 0; line-height: 1.3; }
+.product-type { font-size: 14px; color: #666; margin: 0; line-height: 1.4; }
+
+.product-rating { display: flex; align-items: center; gap: 6px; margin-bottom: 15px; flex-wrap: wrap; }
+.rating-value { font-weight: 500; color: #000; font-size: 15px; }
+.rating-icon { color: #8B5A2B; font-size: 14px; }
+.reviews-count { color: #666; font-size: 14px; }
+.product-tag { margin-left: 8px; padding: 4px 10px; background-color: #f5f5f5; color: #8B5A2B; font-size: 12px; border-radius: 12px; font-weight: 500; }
+
+.product-description { font-size: 14px; color: #333; margin: 0 0 20px 0; line-height: 1.5; flex-grow: 1; }
+
+.product-options { margin-bottom: 20px; }
+.option-row { display: flex; margin-bottom: 12px; background: #fafafa; padding: 12px; border-radius: 6px; }
+.option-row:last-child { margin-bottom: 0; }
+.option-column { flex: 1; padding: 0 5px; }
+
+.option-label { display: block; font-size: 11px; color: #666; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+.option-value { display: block; font-size: 14px; color: #000; font-weight: 500; }
+
+.coffee-attribute { display: flex; align-items: center; gap: 10px; }
+.attribute-bars { display: flex; gap: 4px; flex-grow: 1; }
+.attribute-bar { height: 6px; flex: 1; background-color: #f0f0f0; border-radius: 3px; transition: background-color .3s ease; }
+.attribute-bar.filled { background-color: #8B5A2B; }
+.attribute-value { font-size: 12px; color: #666; min-width: 40px; text-align: right; }
+
+.add-to-cart-btn{
+  width: 100%; padding: 14px; background: #000; color: #fff; border: none; border-radius: 6px;
+  font-family: 'Oswald', sans-serif; font-size: 14px; font-weight: 500; text-transform: uppercase;
+  cursor: pointer; transition: background .3s; margin-top: auto; letter-spacing: 0.5px;
+}
+.add-to-cart-btn:hover { background: #333; }
+
+@media (max-width: 768px) {
+  .products-header { flex-direction: column; align-items: flex-start; }
+  .sort-controls { width: 100%; justify-content: flex-start; }
+}
+
+/* (опционально) стиль для кнопки очистки рядом с фильтрами */
+.sort-button.clear-search{ border-color: rgba(15,23,42,.24); }

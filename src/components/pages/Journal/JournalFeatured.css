@@ -1,0 +1,43 @@
+.journal-featured {
+  padding: 18px 0 6px;
+}
+.journal-featured .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 5%;
+}
+.featured-card {
+  position: relative;
+  border: 1px solid rgba(15,23,42,.12);
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+}
+.featured-card img {
+  width: 100%;
+  height: clamp(220px, 36vw, 420px);
+  object-fit: cover;
+  display: block;
+}
+.featured-content {
+  position: absolute;
+  left: 24px; right: 24px; bottom: 24px;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(15,23,42,.08);
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: grid;
+  gap: 8px;
+}
+.featured-content h2 {
+  margin: 0;
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(18px, 3vw, 26px);
+}
+.featured-content p {
+  margin: 0;
+  color: #333;
+  line-height: 1.55;
+}
+.featured-content .btn { justify-self: start; }

@@ -1,0 +1,25 @@
+.average-rating {
+  display: flex;
+  justify-content: space-around;
+  gap: 2rem;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.avg-label {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+  color: #444;
+}
+
+.avg-rating-number {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #6b4f3b;
+}

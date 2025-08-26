@@ -1,0 +1,50 @@
+.journal-subscribe {
+  padding: 24px 0 46px;
+  border-top: 1px solid rgba(15,23,42,.08);
+}
+.journal-subscribe .container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 5%;
+  text-align: center;
+}
+.journal-subscribe h3 {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(18px, 2.4vw, 24px);
+  margin: 0 0 6px 0;
+}
+.journal-subscribe p {
+  margin: 0 0 14px 0;
+  color: #666b73;
+}
+.journal-subscribe form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  max-width: 560px;
+  margin: 0 auto;
+}
+.journal-subscribe input[type="email"] {
+  height: 44px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(15,23,42,.12);
+  font-size: 14px;
+  outline: none;
+}
+.journal-subscribe input[type="email"]:focus {
+  box-shadow: 0 0 0 3px rgba(139,90,43,.18);
+  border-color: rgba(0,0,0,.28);
+}
+.journal-subscribe .btn {
+  height: 44px;
+  padding: 0 18px;
+  border-radius: 10px;
+}
+
+/* mobile */
+@media (max-width: 560px) {
+  .journal-subscribe form {
+    grid-template-columns: 1fr;
+  }
+}

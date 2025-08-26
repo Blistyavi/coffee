@@ -1,0 +1,180 @@
+/* Auth.css
+   Стиль страниц регистрации, входа и личного кабинета
+   — дружит с твоими глобальными токенами из index.css
+*/
+
+/* базовый фон раздела авторизации */
+.auth-page {
+  background: var(--bg, #f7f7f8);
+}
+
+/* обёртка */
+.auth-wrap{
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-items: flex-start;
+}
+
+/* карточка */
+.auth-card{
+  width: min(680px, 100%);
+  padding: clamp(18px, 3vw, 28px);
+}
+
+/* заголовки */
+.auth-title{
+  font-size: clamp(22px, 3.2vw, 28px);
+  font-weight: 600;
+  letter-spacing: .5px;
+  margin-bottom: 6px;
+}
+.auth-subtitle{
+  color: var(--muted, #666b73);
+  margin-bottom: 18px;
+}
+
+/* алерты */
+.auth-alert{
+  padding: 10px 12px;
+  border-radius: var(--radius, 12px);
+  border: 1px solid var(--border, rgba(15,23,42,.10));
+  margin-bottom: 12px;
+  font-size: 14px;
+  background: #fff;
+}
+.auth-alert.error{
+  background: #fff5f5;
+  border-color: #ffd1d1;
+  color: #b20000;
+}
+.auth-alert.success{
+  background: #f5fff7;
+  border-color: #c9f2d1;
+  color: #0a7a22;
+}
+
+/* OAuth */
+.oauth-buttons{
+  display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+  margin: 8px 0 6px;
+}
+
+.oauth-btn{
+  display: inline-flex; align-items: center; gap: 10px;
+  height: 42px; padding: 0 16px;
+  border-radius: var(--radius, 12px);
+  border: 1px solid var(--border, rgba(15,23,42,.10));
+  background: #fff;
+  color: #111;
+  font-weight: 500;
+  transition: transform .12s var(--ease, cubic-bezier(.22,1,.36,1)), box-shadow .2s var(--ease, cubic-bezier(.22,1,.36,1)), filter .2s var(--ease, cubic-bezier(.22,1,.36,1));
+}
+.oauth-btn:active{ transform: translateY(1px); }
+.oauth-btn .oauth-icon{
+  width: 18px; height: 18px; display:inline-block;
+}
+
+/* Брендовые варианты */
+.oauth-btn.google{
+  background: #fff;
+  border-color: var(--border, rgba(15,23,42,.10));
+}
+.oauth-btn.google:hover{ filter: brightness(1.03); }
+
+.oauth-btn.mailru{
+  background: #168de2; /* mail.ru */
+  color: #fff;
+  border-color: #168de2;
+}
+.oauth-btn.mailru:hover{ filter: brightness(1.08); }
+
+/* Разделитель */
+.or-sep{
+  display:flex; align-items:center; justify-content:center;
+  gap: 10px; margin: 14px 0;
+  color: var(--muted, #666b73);
+  font-size: 13px;
+}
+.or-sep::before, .or-sep::after{
+  content:""; flex:1; height:1px; background: var(--border, rgba(15,23,42,.10));
+}
+
+/* форма */
+.auth-form{ display:grid; gap: 14px; }
+.field{ display:grid; gap:6px; }
+.field label{ font-size: 13px; color:#333; letter-spacing:.3px; }
+
+/* поля — используем классы из твоих глобалок и чуть настраиваем для auth */
+.auth-form .input{
+  width: 100%;
+  height: 42px;
+  padding: 0 14px;
+  border-radius: var(--radius-sm, 8px);
+  border: 1px solid var(--border, rgba(15,23,42,.10));
+  background: #fff;
+  transition: box-shadow .2s var(--ease, cubic-bezier(.22,1,.36,1)), border-color .2s var(--ease, cubic-bezier(.22,1,.36,1));
+}
+.auth-form .input::placeholder{ color: #9aa0a6; }
+.auth-form .input:focus{ border-color: rgba(0,0,0,.28); box-shadow: var(--ring, 0 0 0 3px rgba(139,90,43,.18)); }
+
+/* textarea как input, но авто-высота */
+.auth-form textarea.input{
+  height: auto;
+  min-height: 96px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  resize: vertical;
+  line-height: 1.4;
+}
+
+/* состояние ошибки поля */
+.input.is-invalid{
+  border-color: #ff9b9b !important;
+  box-shadow: 0 0 0 3px rgba(255, 85, 85, .15) !important;
+}
+
+/* действия формы */
+.auth-actions{
+  display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+  margin-top: 4px;
+}
+
+/* вспомогательные ссылки */
+.auth-links{
+  display:flex; gap: 12px; flex-wrap: wrap;
+  margin-top: 8px; font-size: 14px;
+}
+.auth-links a{ color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.auth-links a:hover{ color: var(--accent, #8B5A2B); }
+
+/* профиль (аккаунт) — лёгкая сетка */
+.profile-grid{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+.profile-row{
+  display: grid; gap: 6px;
+}
+
+/* аватар-заглушка (если решишь добавить) */
+.profile-avatar{
+  width: 72px; height: 72px; border-radius: 50%;
+  background: #eee; border: 1px solid var(--border, rgba(15,23,42,.10));
+  display:flex; align-items:center; justify-content:center;
+  font-weight: 600; color:#777;
+}
+
+/* мелкий текст-пояснение */
+.auth-note{
+  font-size: 12px;
+  color: var(--muted, #666b73);
+  margin-top: 6px;
+}
+
+/* адаптив */
+@media (max-width: 640px){
+  .oauth-buttons{ gap: 8px; }
+  .oauth-btn{ height: 40px; padding: 0 14px; }
+}
