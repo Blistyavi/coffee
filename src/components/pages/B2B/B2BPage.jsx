@@ -1,4 +1,3 @@
-import React from "react";
 import B2BHeader from "./Header/B2BHeader";
 import B2BFooter from "./Footer/B2BFooter";
 import "./B2BPage.css";
