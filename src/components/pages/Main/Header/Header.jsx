@@ -1,3 +1,4 @@
+// src/components/layout/Header/Header.jsx
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
@@ -12,23 +13,32 @@ import { useAuth } from "../../Auth/AuthContext";
 import "./Header.css";
 import Logo from "../../../../assets/logo.png";
 
-const CLOSE_DELAY = 120; // чтобы выпадашка не хлопала
+const CLOSE_DELAY = 120; // задержка для плавного hover
 
 export default function Header() {
   const { user } = useAuth();
 
-  // dropdown «Условия работы»
   const [termsOpen, setTermsOpen] = useState(false);
-  const termsTimer = useRef(null);
-  const navRef = useRef(null);
+  const [isTouch, setIsTouch] = useState(false);
 
-  // поиск
+  const navRef = useRef(null);
+  const termsTimer = useRef(null);
+
   const [q, setQ] = useState("");
+  const inputRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const inputRef = useRef(null);
 
-  // подтягиваем q из URL когда мы в /catalog
+  // определяем touch-устройство
+  useEffect(() => {
+    const mq = window.matchMedia("(hover: none), (pointer: coarse)");
+    const setFlag = () => setIsTouch(mq.matches);
+    setFlag();
+    mq.addEventListener?.("change", setFlag);
+    return () => mq.removeEventListener?.("change", setFlag);
+  }, []);
+
+  // подтягиваем q из URL, если мы на /catalog
   useEffect(() => {
     if (location.pathname.startsWith("/catalog")) {
       const sp = new URLSearchParams(location.search);
@@ -36,35 +46,37 @@ export default function Header() {
     }
   }, [location.pathname, location.search]);
 
-  // клики-вне и ESC закрывают меню
+  // обработка клика вне / ESC
   useEffect(() => {
-    const onDocDown = (e) => {
+    const onDocClick = (e) => {
       if (navRef.current && !navRef.current.contains(e.target)) {
         setTermsOpen(false);
       }
     };
     const onEsc = (e) => e.key === "Escape" && setTermsOpen(false);
-
-    document.addEventListener("mousedown", onDocDown);
+    document.addEventListener("click", onDocClick);
     document.addEventListener("keydown", onEsc);
     return () => {
-      document.removeEventListener("mousedown", onDocDown);
+      document.removeEventListener("click", onDocClick);
       document.removeEventListener("keydown", onEsc);
     };
   }, []);
 
   useEffect(() => () => clearTimeout(termsTimer.current), []);
 
-  // helpers для dropdown
-  const openTerms = () => {
+  // dropdown helpers
+  const onEnterTerms = () => {
+    if (isTouch) return;
     clearTimeout(termsTimer.current);
     setTermsOpen(true);
   };
-  const closeTermsDelayed = () => {
+  const onLeaveTerms = () => {
+    if (isTouch) return;
     clearTimeout(termsTimer.current);
     termsTimer.current = setTimeout(() => setTermsOpen(false), CLOSE_DELAY);
   };
   const toggleTerms = () => setTermsOpen((v) => !v);
+  const closeAfterClick = () => setTimeout(() => setTermsOpen(false), 0);
   const closeAll = () => setTermsOpen(false);
 
   // поиск
@@ -75,7 +87,6 @@ export default function Header() {
     else navigate("/catalog");
     closeAll();
   };
-
   const onClearSearch = () => {
     setQ("");
     if (location.pathname.startsWith("/catalog")) {
@@ -87,6 +98,7 @@ export default function Header() {
   return (
     <header className="coffee-header">
       <div className="header-container">
+        {/* Левая часть */}
         <div className="header-left">
           <Link to="/" className="logo-link" onClick={closeAll}>
             <img src={Logo} alt="Coffee Shop Logo" className="logo-img" />
@@ -96,11 +108,9 @@ export default function Header() {
             <Link to="/reviews" className="nav-link" onClick={closeAll}>
               ОТЗЫВЫ <span className="highlight-count">34.693</span>
             </Link>
-
             <Link to="/community" className="nav-link" onClick={closeAll}>
               СООБЩЕСТВО
             </Link>
-
             <Link to="/journal" className="nav-link" onClick={closeAll}>
               ЖУРНАЛ
             </Link>
@@ -108,12 +118,12 @@ export default function Header() {
             {/* УСЛОВИЯ РАБОТЫ */}
             <div
               className={`nav-item with-dropdown ${termsOpen ? "open" : ""}`}
-              onPointerEnter={openTerms}
-              onPointerLeave={closeTermsDelayed}
+              onMouseEnter={onEnterTerms}
+              onMouseLeave={onLeaveTerms}
             >
               <button
                 type="button"
-                className="nav-link"
+                className="nav-link dd-trigger"
                 onClick={toggleTerms}
                 aria-expanded={termsOpen}
                 aria-haspopup="menu"
@@ -128,17 +138,18 @@ export default function Header() {
                 className={`dropdown-menu ${termsOpen ? "open" : ""}`}
                 role="menu"
                 aria-hidden={!termsOpen}
+                onClick={(e) => e.stopPropagation()}
               >
-                <Link to="/delivery" onClick={closeAll}>
+                <Link to="/delivery" onClick={closeAfterClick}>
                   ДОСТАВКА И ОПЛАТА
                 </Link>
-                <Link to="/discounts" onClick={closeAll}>
+                <Link to="/discounts" onClick={closeAfterClick}>
                   СИСТЕМА СКИДОК
                 </Link>
-                <Link to="/returns" onClick={closeAll}>
+                <Link to="/returns" onClick={closeAfterClick}>
                   ВОЗВРАТ ДЕНЕГ
                 </Link>
-                <Link to="/faq" onClick={closeAll}>
+                <Link to="/faq" onClick={closeAfterClick}>
                   ЧАСТЫЕ ВОПРОСЫ
                 </Link>
               </div>
@@ -146,6 +157,7 @@ export default function Header() {
           </nav>
         </div>
 
+        {/* Правая часть */}
         <div className="header-right">
           <form className="search-wrapper" onSubmit={onSubmitSearch}>
             <FiSearch className="search-icon" />
@@ -171,7 +183,6 @@ export default function Header() {
             )}
           </form>
 
-          {/* Регистрация / Аккаунт */}
           {!user ? (
             <Link
               to="/register"
@@ -193,7 +204,6 @@ export default function Header() {
             </Link>
           )}
 
-          {/* обычная страница корзины */}
           <Link
             to="/cart"
             className="cart-link"
