@@ -1,60 +1,298 @@
-.reviews-page {
-  margin: 2rem auto;
-  max-width: 1000px;
+/* =========================
+   Reviews — unified styles
+   ========================= */
+:root{
+  --brand: #8B5A2B;
+  --ink: #1a1a1a;
+  --muted: #61666f;
+  --line: rgba(15,23,42,.12);
+  --glass: rgba(255,255,255,.78);
+  --shadow-sm: 0 6px 18px rgba(0,0,0,.08);
+  --shadow-md: 0 12px 30px rgba(0,0,0,.12), 0 2px 10px rgba(0,0,0,.06);
+  --ease: cubic-bezier(.22,1,.36,1);
 }
 
-.reviews-page h2 {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
+/* базовая сетка страницы отзывов */
+.reviews-page{
+  width: min(1000px, 92%);
+  margin-inline: auto;
+  margin-block: 28px 80px;
+}
+
+.reviews-page h2{
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(22px, 3.4vw, 32px);
+  font-weight: 600;
+  letter-spacing: .5px;
+  text-align: center;
+  margin: 0 0 16px 0;
+  color: var(--ink);
+}
+
+/* =========================
+   Average Rating (summary)
+   ========================= */
+.average-rating{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  padding: 14px;
+  margin: 16px 0 20px;
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
   text-align: center;
 }
-
-.reviews-grid {
+.avg-block{
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+  gap: 6px;
+  align-content: center;
+}
+.avg-label{
+  display: block;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+.avg-rating-number{
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(28px, 4.5vw, 40px);
+  font-weight: 600;
+  color: var(--brand);
+  line-height: 1;
 }
 
-.review-card {
-  background: rgba(255, 255, 255, 0.75);
+/* =========================
+   Add Review (form)
+   ========================= */
+.add-review{
+  display: grid;
+  gap: 14px;
+  background: var(--glass);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--line);
   border-radius: 16px;
-  padding: 1rem 1.5rem;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  padding: clamp(16px, 3vw, 22px);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 22px;
 }
 
-.review-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+/* заголовок и подсказка в форме */
+.add-review .ar-head h3{
+  margin: 0 0 4px 0;
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(18px, 2.6vw, 22px);
+  letter-spacing: .4px;
+  color: var(--ink);
+}
+.add-review .ar-head p{
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
 }
 
-.review-top {
-  display: flex;
-  justify-content: space-between;
+/* алерт ошибки */
+.add-review .ar-alert{
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid #ffd6d6;
+  background: #fff3f3;
+  color: #b00000;
+  font-size: 14px;
+}
+
+/* сетка рядов */
+.add-review .row{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* поля */
+.add-review .field{ display: grid; gap: 8px; }
+
+.add-review label{
+  font-size: 13px;
+  letter-spacing: .2px;
+  color: var(--muted);
+}
+
+.add-review input,
+.add-review textarea,
+.add-review select{
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  font-size: 15px;
+  background: rgba(255,255,255,.94);
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.03);
+  color: var(--ink);
+  transition: box-shadow .2s var(--ease), border-color .2s var(--ease), transform .06s;
+}
+
+/* НЕЛЬЗЯ «тянуть» поле отзыва */
+.add-review textarea{
+  min-height: 110px;
+  resize: none;
+}
+
+.add-review input:focus,
+.add-review textarea:focus,
+.add-review select:focus{
+  outline: none;
+  border-color: rgba(139,90,43,.35);
+  box-shadow: 0 0 0 3px rgba(139,90,43,.16);
+}
+
+/* звёзды выбора */
+.add-review .stars{
+  display: inline-flex;
   align-items: center;
-  margin-bottom: 0.8rem;
+  gap: 8px;
+  height: 42px;
+  padding: 6px 10px;
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  background: #fff;
+}
+.add-review .star{
+  appearance: none;
+  border: 0;
+  background: transparent;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  color: #c7c7c7;
+  transition: transform .12s ease, color .12s ease;
+  padding: 0 2px;
+}
+.add-review .star.active{ color: var(--brand); }
+.add-review .star:hover{ transform: translateY(-1px) scale(1.06); }
+.add-review .stars-value{
+  margin-left: 4px;
+  min-width: 18px;
+  text-align: center;
+  font-weight: 600;
+  color: var(--brand);
 }
 
-.review-name {
-  font-weight: bold;
+/* действия / кнопка отправки */
+.add-review .actions{ display: flex; gap: 10px; }
+
+.add-review .btn-primary,
+.add-review .btn-dark{
+  height: 44px;
+  padding: 0 20px;
+  border-radius: 12px;
+  border: 1px solid #000;
+  background: #000;
+  color: #fff;
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: filter .2s ease, transform .12s ease, box-shadow .2s ease;
+  box-shadow: 0 8px 20px rgba(0,0,0,.12);
+}
+.add-review .btn-primary:hover,
+.add-review .btn-dark:hover{ filter: brightness(1.08); }
+.add-review .btn-primary:active,
+.add-review .btn-dark:active{ transform: translateY(1px); }
+
+/* =========================
+   Reviews Grid (cards)
+   ========================= */
+.reviews-grid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.review-card{
+  background: rgba(255,255,255,.9);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: var(--shadow-sm);
+  transition: transform .2s var(--ease), box-shadow .25s var(--ease);
+  will-change: transform;
+}
+.review-card:hover{
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.review-top{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.review-name{
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--ink);
+}
+.review-date{
+  font-size: .9rem;
+  color: var(--muted);
+}
+
+/* рейтинг в карточке */
+.review-rating{
+  margin: 4px 0 8px;
   font-size: 1.1rem;
-  color: #333;
+  color: var(--brand);
+  letter-spacing: .5px;
 }
 
-.review-date {
-  font-size: 0.9rem;
-  color: #777;
+/* для двух оценок (магазин / доставка) */
+.review-rating.dual{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
 }
-
-.review-rating {
-  margin: 0.5rem 0;
+.review-rating .label{
+  font-size: .82rem;
+  color: var(--muted);
+}
+.review-rating .stars{
   font-size: 1.1rem;
-  color: #6b4f3b;
+  color: var(--brand);
 }
 
-.review-text {
+.review-text{
   font-size: 1rem;
-  line-height: 1.4;
-  color: #444;
+  line-height: 1.5;
+  color: #2a2a2a;
+  word-break: break-word;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+@media (max-width: 980px){
+  .average-rating{ grid-template-columns: 1fr 1fr 1fr; }
+  .reviews-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@media (max-width: 700px){
+  .add-review .row{ grid-template-columns: 1fr; }
+  .add-review .stars{ width: 100%; justify-content: space-between; }
+}
+@media (max-width: 680px){
+  .average-rating{ grid-template-columns: 1fr; }
+  .avg-block:nth-child(2){ order: 3; }
+  .avg-block:nth-child(3){ order: 2; }
+
+  .reviews-grid{ grid-template-columns: 1fr; }
+  .review-card{ padding: 12px 14px; }
+}
+@media (prefers-reduced-motion: reduce){
+  *{ transition: none !important; }
 }

@@ -9,6 +9,7 @@
   --dd-radius: 14px;
 }
 
+/* типографика Oswald */
 .coffee-header,
 .coffee-header *:not(.material-icons):not(.material-icons-outlined):not([class^="icon-"]):not([class*=" icon-"]) {
   font-family: 'Oswald', sans-serif !important;
@@ -25,14 +26,16 @@
 }
 .header-container{
   display:flex; justify-content:space-between; align-items:center;
+  gap: 20px;
   max-width:1400px; margin:0 auto;
 }
 
 /* левая часть */
-.header-left{ display:flex; align-items:center; gap:40px; }
+.header-left{ display:flex; align-items:center; gap:28px; min-width:0; }
 .logo-img{ height:40px; width:auto; }
+
 .main-nav{
-  display:flex; gap:25px; align-items:center;
+  display:flex; gap:20px; align-items:center;
   overflow: visible; /* выпадашки не обрезаются */
 }
 
@@ -42,6 +45,7 @@
   display:flex; align-items:center; gap:5px;
   background:none; border:0; cursor:pointer; padding:0; position:relative;
   transition: color .2s;
+  white-space: nowrap;
 }
 .nav-link:hover{ color:#8B5A2B; }
 .highlight-count{ color:#8B5A2B; font-weight:500; }
@@ -79,7 +83,7 @@
 }
 .dropdown-menu a{
   color:#242424; text-decoration:none; font-weight:400; font-size:14px; line-height:1.25;
-  padding:8px 10px; border-radius:8px;
+  padding:10px 12px; border-radius:10px;
   white-space:normal; word-break:break-word;
   transition: background .18s ease, color .18s ease;
 }
@@ -88,10 +92,10 @@
 }
 
 /* правая часть */
-.header-right{ display:flex; align-items:center; gap:20px; }
+.header-right{ display:flex; align-items:center; gap:16px; }
 
 /* поиск */
-.search-wrapper{ position:relative; display:flex; align-items:center; }
+.search-wrapper{ position:relative; display:flex; align-items:center; min-width:0; }
 .search-input{
   padding:8px 36px 8px 35px;
   border:none; border-bottom:1px solid #ddd; font-size:14px; width:250px; outline:none;
@@ -106,7 +110,7 @@
 .search-clear:hover{ color:#333; }
 
 /* кнопки справа */
-.account-link, .cart-link{ color:#333; font-size:20px; transition: color .2s; }
+.account-link, .cart-link{ color:#333; font-size:20px; transition: color .2s; display:inline-flex; }
 .account-link:hover, .cart-link:hover{ color:#8B5A2B; }
 
 /* текстовая кнопка регистрации */
@@ -123,8 +127,94 @@
 .auth-btn:hover{ filter: brightness(0.96); }
 .auth-btn:active{ transform: translateY(1px); }
 
-/* мобильные */
-@media (max-width:768px){
-  .main-nav{ gap:18px; }
-  .search-input{ width:200px; }
+/* ========================= */
+/*        MOBILE ADAPT       */
+/* ========================= */
+
+/* планшеты — компактнее отступы, поиск шире */
+@media (max-width: 1024px){
+  .coffee-header{ padding:12px 4%; }
+  .header-left{ gap:20px; }
+  .main-nav{ gap:16px; }
+  .search-input{ width:220px; }
+}
+
+/* телефоны: переносим в две линии, нав — горизонтальный скролл, дропдаун — full width */
+@media (max-width: 768px){
+  .coffee-header{
+    padding:10px 4%;
+  }
+  .header-container{
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .header-left{
+    justify-content: space-between;
+  }
+
+  /* строка навигации отдельной полосой под логотипом */
+  .main-nav{
+    order: 2;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 12px;
+    padding-bottom: 2px;
+  }
+  .main-nav::-webkit-scrollbar{ display:none; }
+
+  /* превращаем ссылки в «пилюли» для тач-навигации */
+  .nav-link{
+    padding: 8px 10px;
+    border: 1px solid rgba(15,23,42,.10);
+    border-radius: 999px;
+    font-size: 13px;
+    color:#111;
+    background:#fff;
+  }
+
+  /* поиск — на всю ширину */
+  .header-right{
+    order: 3;
+    justify-content: space-between;
+  }
+  .search-input{
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* иконкам справа дадим чуть больше таргет */
+  .account-link, .cart-link{
+    font-size:22px;
+    padding: 6px;
+  }
+  .auth-btn{
+    height: 38px;
+    padding: 0 12px;
+    font-size:12px;
+  }
+
+  /* dropdown становится «панелью» под шапкой на всю ширину */
+  .with-dropdown{ position: static; }
+  .dropdown-menu{
+    position: fixed;
+    left: 0; right: 0;
+    top: calc(56px + env(safe-area-inset-top, 0px)); /* примерно высота шапки */
+    margin: 0 12px;
+    max-width: none;
+    min-width: 0;
+    border-radius: 14px;
+    transform-origin: top center;
+  }
+  .dropdown-menu::before{ display:none; }
+}
+
+/* очень узкие — уменьшаем лейаут ещё */
+@media (max-width: 420px){
+  .logo-img{ height:34px; }
+  .nav-link{ font-size:12px; padding:7px 9px; }
+  .search-input{ font-size:13px; }
 }

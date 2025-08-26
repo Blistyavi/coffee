@@ -21,7 +21,7 @@ const CartPage = () => {
     decrement,
     removeItem,
     clearCart,
-    closeCart, // <-- берем закрытие мини-корзины из контекста
+    closeCart, // закрытие мини-корзины из контекста
   } = useCart();
 
   const lineTotal = (it) =>
@@ -44,77 +44,82 @@ const CartPage = () => {
       ) : (
         <div className="cart-layout">
           <div className="cart-list">
-            {items.map((it) => (
-              <div
-                className="cart-item card"
-                key={`${it.productId}-${it.form}`}
-              >
-                <div className="ci-thumb">
-                  {it.image ? (
-                    <img src={it.image} alt={it.name} />
-                  ) : (
-                    <div className="ci-ph" />
-                  )}
-                </div>
-
-                <div className="ci-main">
-                  <div className="ci-row">
-                    <div className="ci-name">{it.name}</div>
-                    <button
-                      className="ci-remove"
-                      onClick={() => removeItem(it.productId, it.form)}
-                      aria-label="Удалить"
-                      title="Удалить товар"
-                    >
-                      ✕
-                    </button>
+            {items.map((it) => {
+              const lt = lineTotal(it);
+              return (
+                <div className="cart-item card" key={`${it.productId}-${it.form}`}>
+                  <div className="ci-thumb">
+                    {it.image ? (
+                      <img src={it.image} alt={it.name} />
+                    ) : (
+                      <div className="ci-ph" />
+                    )}
                   </div>
 
-                  <div className="ci-meta">
-                    Форма: <b>{it.form}</b>
-                  </div>
-
-                  <div className="ci-controls">
-                    <div className="qty">
+                  <div className="ci-main">
+                    <div className="ci-row">
+                      <div className="ci-name">{it.name}</div>
                       <button
-                        onClick={() => decrement(it.productId, it.form)}
-                        aria-label="Минус"
-                        title="Уменьшить количество"
+                        className="ci-remove"
+                        onClick={() => removeItem(it.productId, it.form)}
+                        aria-label="Удалить"
+                        title="Удалить товар"
                       >
-                        −
-                      </button>
-                      <span>{it.qty}</span>
-                      <button
-                        onClick={() => increment(it.productId, it.form)}
-                        aria-label="Плюс"
-                        title="Увеличить количество"
-                      >
-                        +
+                        ✕
                       </button>
                     </div>
 
-                    <div className="ci-price">
-                      {formatPrice(it.price)}
-                      {lineTotal(it) != null && (
+                    <div className="ci-meta">
+                      Форма: <b>{it.form}</b>
+                    </div>
+
+                    <div className="ci-controls">
+                      <div className="qty">
+                        <button
+                          onClick={() => decrement(it.productId, it.form)}
+                          aria-label="Минус"
+                          title="Уменьшить количество"
+                        >
+                          −
+                        </button>
+                        <span>{it.qty}</span>
+                        <button
+                          onClick={() => increment(it.productId, it.form)}
+                          aria-label="Плюс"
+                          title="Увеличить количество"
+                        >
+                          +
+                        </button>
+                      </div>
+
+                      <div className="ci-price">
+                        {formatPrice(it.price)}
+                        {/* ВСЕГДА рендерим подстроку -> стабильная высота блока цены */}
                         <span className="ci-line-total">
-                          × {it.qty} = {formatPrice(lineTotal(it))}
+                          {lt != null ? (
+                            <>
+                              × {it.qty} = {formatPrice(lt)}
+                            </>
+                          ) : (
+                            '\u00A0' /* тонкий неразрывный пробел как заглушка */
+                          )}
                         </span>
-                      )}
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Большой минус — сразу удаляет позицию */}
-                <button
-                  className="ci-kill"
-                  aria-label="Удалить товар"
-                  title="Удалить товар"
-                  onClick={() => removeItem(it.productId, it.form)}
-                >
-                  &mdash;
-                </button>
-              </div>
-            ))}
+                  {/* Большой минус — сразу удаляет позицию (desktop/tablet) */}
+                  <button
+                    className="ci-kill"
+                    aria-label="Удалить товар"
+                    title="Удалить товар"
+                    onClick={() => removeItem(it.productId, it.form)}
+                  >
+                    &mdash;
+                  </button>
+                </div>
+              );
+            })}
 
             <div className="cart-actions-left">
               <button className="btn btn-outline" onClick={clearCart}>
